@@ -3,7 +3,7 @@ import { Http, URLSearchParams, Headers } from '@angular/http';
 import { FlightService } from './flight.service';
 import { Flight } from '../../entities/flight';
 import { NgForm } from '@angular/forms';
-import { Observable, Observer } from 'rxjs';
+import { Observable, Observer, Subject } from 'rxjs';
 
 @Component({
   selector: 'flight-search',
@@ -18,8 +18,12 @@ export class FlightSearchComponent {
   selectedFlight: Flight;
 
   // flights --> flights()
-  get flights() {
+  get flights(): Flight[] {
     return this.flightService.flights;
+  }
+
+  get flights$(): Subject<Flight[]> {
+    return this.flightService.flights$;
   }
 
   basket: any = {

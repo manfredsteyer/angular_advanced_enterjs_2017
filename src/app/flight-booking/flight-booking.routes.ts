@@ -3,20 +3,25 @@ import { FlightSearchComponent } from './flight-search/flight-search.component';
 import { PassengerSearchComponent } from './passenger-search/passenger-search.component';
 import { FlightEditComponent } from './flight-edit/flight-edit.component';
 import { FlightBookingComponent } from './flight-booking.component';
-import { DelayResolver } from "app/shared/tools/delay.resolver";
+import { AuthGuard } from '../shared/auth/auth.guard';
 
 const FLIGHT_BOOKING_ROUTES: Routes = [
   {
-    path: 'flight-booking',
+    path: '',
     component: FlightBookingComponent,
+    // canActivate: [AuthGuard],
+    data: {
+      roles: 'User',
+      permissionLevel: 17
+    },
     children: [
       {
-        path: '',
+        path: '', // flight-booking
         redirectTo: 'flight-search',
         pathMatch: 'full'
       },
       {
-        path: 'flight-search',
+        path: 'flight-search', // flight-booking/flight-search
         component: FlightSearchComponent
       },
       {

@@ -11,11 +11,13 @@ import { PassengerSearchComponent } from './passenger-search/passenger-search.co
 import { FlightEditComponent } from './flight-edit/flight-edit.component';
 import { FlightBookingComponent } from './flight-booking.component';
 import { TranslateModule } from "@ngx-translate/core";
+import { AuthModule } from '../auth/auth.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    AuthModule,
     SharedModule,
     ReactiveFormsModule,
     FlightBookingRouterModule,

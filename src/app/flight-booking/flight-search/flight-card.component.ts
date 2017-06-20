@@ -1,10 +1,14 @@
 
-import { Component, Input, EventEmitter, Output, OnInit, OnChanges, SimpleChanges, ElementRef, NgZone } from '@angular/core';
+import {
+  Component, Input, EventEmitter, Output, OnInit, OnChanges, SimpleChanges, ElementRef, NgZone,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { Flight } from '../../entities/flight';
 
 @Component({
   selector: 'flight-card',
-  templateUrl: './flight-card.component.html'
+  templateUrl: './flight-card.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FlightCardComponent {
 
@@ -13,7 +17,7 @@ export class FlightCardComponent {
   @Output() selectedChange = new EventEmitter<boolean>();
 
   constructor(private element: ElementRef, private zone: NgZone) {
-    
+
   }
 
   select() {

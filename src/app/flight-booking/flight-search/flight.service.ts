@@ -1,5 +1,5 @@
 
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Flight } from '../../entities/flight';
 import { Http, Headers, URLSearchParams } from '@angular/http';
 import { Injectable, Inject } from '@angular/core';
@@ -16,24 +16,38 @@ export class FlightService {
   }
 
   flights: Flight[] = [];
+  flights$ = new Subject<Flight[]>();
 
   delay(): void {
 
     const ONE_MINUTE = 1000 * 60;
 
     if (this.flights.length == 0) return;
-    
+
     let f = this.flights[0];
     let date = new Date(f.date);
-    date.setTime(date.getTime() + 15 * ONE_MINUTE)
-    f.date = date.toISOString();
+
+    let newDate = new Date(date.getTime() + 15 * ONE_MINUTE)
+    let newFlight: Flight = { ...f, date: newDate.toISOString() }; // TypeScript 2.1
+    let newFlights: Flight[] = [newFlight, ...this.flights.slice(1)]
+
+    this.flights = newFlights;
+
+    this.flights$.next(this.flights);
+
+    // this.flights == oldValue
+    // this.flights[0] == oldValue
+    // this.flights[1] == oldValue
+
+    // Vor TypeScript 2.1
+    // let newFlight: Flight = Object.assign({}, f, { date: newDate.toISOString() })
 
   }
 
   find(from: string, to: string): void {
-    
-    //let url = this.baseUrl + '/secureflight/byRoute';
-    let url = this.baseUrl + '/flight';
+
+    let url = this.baseUrl + '/secureflight/byRoute';
+    //let url = this.baseUrl + '/flight';
 
     let search = new URLSearchParams();
     search.set('from', from);
@@ -41,7 +55,7 @@ export class FlightService {
 
     let headers = new Headers();
     headers.set('Accept', 'application/json');
-    //headers.set('Authorization', this.oauthService.authorizationHeader());
+    headers.set('Authorization', this.oauthService.authorizationHeader());
 
     this
         .http
@@ -50,6 +64,7 @@ export class FlightService {
         .subscribe(
           flights => {
             this.flights = flights;
+            this.flights$.next(this.flights);
           },
           err => {
             console.error(err)
@@ -58,7 +73,7 @@ export class FlightService {
   }
 
   findById(id: string): Observable<Flight> {
-    
+
     //let url = this.baseUrl + '/secureflight/byRoute';
     let url = this.baseUrl + '/flight';
 
@@ -76,7 +91,7 @@ export class FlightService {
   }
 
   save(flight: Flight): Observable<Flight> {
-    
+
     //let url = this.baseUrl + '/secureflight/byRoute';
     let url = this.baseUrl + '/flight';
 

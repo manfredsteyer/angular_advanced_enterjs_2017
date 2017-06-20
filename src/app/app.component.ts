@@ -17,7 +17,7 @@ export class AppComponent {
     private oauthService: OAuthService,
     private translateService: TranslateService) {
 
-    // this.initAuth();
+    this.initAuth();
     this.initRouterEvents();
     this.initI18N();
   }
@@ -65,7 +65,7 @@ export class AppComponent {
 
     // Use setStorage to use sessionStorage or another implementation of the TS-type Storage
     // instead of localStorage
-    this.oauthService.setStorage(sessionStorage);
+    this.oauthService.setStorage(localStorage);
 
     // The name of the auth-server that has to be mentioned within the token
     this.oauthService.issuer = "https://steyer-identity-server.azurewebsites.net/identity";

@@ -19,6 +19,7 @@ import { FlightBookingModule } from "app/flight-booking/flight-booking.module";
 
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
+import { AuthModule } from './auth/auth.module';
 
 export function createLoader(http: Http) {
     return new TranslateHttpLoader (http, './assets/i18n/', '.json');
@@ -29,7 +30,8 @@ export function createLoader(http: Http) {
     BrowserModule,
     FormsModule,
     HttpModule,
-    FlightBookingModule,
+    AuthModule.forRoot(),
+    // FlightBookingModule,
     AppRouterModule,
     SharedModule,
     TranslateModule.forRoot({
