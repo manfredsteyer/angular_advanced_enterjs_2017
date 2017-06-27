@@ -1,5 +1,6 @@
 
-import { Observable, Subject } from 'rxjs';
+import { Observable} from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import { Flight } from '../../entities/flight';
 import { Http, Headers, URLSearchParams } from '@angular/http';
 import { Injectable, Inject } from '@angular/core';
@@ -55,6 +56,7 @@ export class FlightService {
 
     let headers = new Headers();
     headers.set('Accept', 'application/json');
+
     headers.set('Authorization', this.oauthService.authorizationHeader());
 
     this

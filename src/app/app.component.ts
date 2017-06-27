@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
@@ -43,7 +43,7 @@ export class AppComponent {
 
   initI18N() {
     this.translateService.addLangs(['en', 'de']);
-    this.translateService.setDefaultLang('de');
+    this.translateService.setDefaultLang('en');
     this.translateService.use('de');
   }
 
@@ -80,6 +80,10 @@ export class AppComponent {
 
     });
 
+  }
+
+  setLang(lang: string) {
+    this.translateService.use(lang);
   }
 
 }

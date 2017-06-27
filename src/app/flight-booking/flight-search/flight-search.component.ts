@@ -3,7 +3,9 @@ import { Http, URLSearchParams, Headers } from '@angular/http';
 import { FlightService } from './flight.service';
 import { Flight } from '../../entities/flight';
 import { NgForm } from '@angular/forms';
-import { Observable, Observer, Subject } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { Observer} from 'rxjs/Observer';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'flight-search',

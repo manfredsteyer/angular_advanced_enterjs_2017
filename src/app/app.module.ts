@@ -8,21 +8,24 @@ import { FlightSearchComponent } from './flight-booking/flight-search/flight-sea
 import { FlightService } from './flight-booking/flight-search/flight.service';
 import { BASE_URL } from './app.tokens';
 import { CityPipe } from './shared/pipes/city.pipe';
-// import { FlightBookingModule } from './flight-booking/flight-booking.module';
 import { EventService } from './event.service';
 import { BasketComponent } from './basket/basket.component';
 import { AppRouterModule } from './app.routes';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from './shared/shared.module';
-import { OAuthModule } from 'angular-oauth2-oidc';
-import { FlightBookingModule } from "app/flight-booking/flight-booking.module";
 
+import { OAuthModule } from 'angular-oauth2-oidc';
+
+import { AuthModule } from './auth/auth.module';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
-import { AuthModule } from './auth/auth.module';
+
+import { SampleModule } from 'my-lib';
+
 
 export function createLoader(http: Http) {
     return new TranslateHttpLoader (http, './assets/i18n/', '.json');
+    // ./assets/i18n/de.json
 }
 
 @NgModule({
@@ -30,10 +33,15 @@ export function createLoader(http: Http) {
     BrowserModule,
     FormsModule,
     HttpModule,
+
     AuthModule.forRoot(),
+
+    SampleModule.forRoot(),
+
     // FlightBookingModule,
     AppRouterModule,
     SharedModule,
+
     TranslateModule.forRoot({
         loader: {
             provide: TranslateLoader,
